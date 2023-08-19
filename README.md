@@ -1,6 +1,8 @@
 # PostgreSQL
 Welcome to my GitHub repository! 🚀  In this repository, you'll find a collection of SQL commands, queries, and scripts that I've been  practicing to enhance my database and programming skills. These commands cover a range of topics,  including table creation, data manipulation, querying, and more.
 
+![image](https://github.com/RahulBattula/PostgreSQL/assets/96605083/02e10632-2c45-4062-9263-e67a5fe47560)
+
 
 ## Great Places to Find Free Datasets for Project
 
