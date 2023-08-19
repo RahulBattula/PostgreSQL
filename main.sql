@@ -47,22 +47,43 @@ ALTER TABLE boats ALTER COLUMN bid TYPE NUMERIC;
 
 
 /* inserting data into SAILORS table */
-INSERT INTO SAILORS VALUES(22,'DUSTIN',7,45.0);
+INSERT INTO SAILORS VALUES (22,'DUSTIN',7,45.0);
 
-INSERT INTO SAILORS VALUES(29,'BRUTUS',1,33.0);
+INSERT INTO SAILORS VALUES (29,'BRUTUS',1,33.0);
 
-INSERT INTO SAILORS VALUES(31,'LUBBER',8,55.5);
+INSERT INTO SAILORS VALUES (31,'LUBBER',8,55.5);
 
-INSERT INTO SAILORS VALUES(32,'ANDY',8,25.5);
+INSERT INTO SAILORS VALUES (32,'ANDY',8,25.5);
 
-INSERT INTO SAILORS VALUES(58,'RUSTY',10,35.5);
+INSERT INTO SAILORS VALUES (58,'RUSTY',10,35.5);
 
-INSERT INTO SAILORS VALUES(64,'HORATIO',7,35.0);
+INSERT INTO SAILORS VALUES (64,'HORATIO',7,35.0);
 
-INSERT INTO SAILORS VALUES(71,'ZORBA',10,16.0);
+INSERT INTO SAILORS VALUES (71,'ZORBA',10,16.0);
 
-INSERT INTO SAILORS VALUES(74,'HORATIO',9,35.0);
+INSERT INTO SAILORS VALUES (74,'HORATIO',9,35.0);
 
-INSERT INTO SAILORS VALUES(85,'ART',3,25.0);
+INSERT INTO SAILORS VALUES (85,'ART',3,25.0);
 
-INSERT INTO SAILORS VALUES(95,'BOB',3,63.5);
+INSERT INTO SAILORS VALUES (95,'BOB',3,63.5);
+
+
+-- Questions and Queries on above tables
+
+-- 1) Find the name of sailors who reserved boat number 3.
+SELECT DISTINCT(sname) from sailors,reserves where sailors.sid = reserves.sid;
+
+-- 2) Find the name of sailors who reserved green boat.
+SELECT s.sname FROM sailors s, reserves r, boats b WHERE s.sid = r.sid AND r.bid = b.bid AND b.color = 'GREEN';
+
+-- 3) Find the color of boats reserved by Dustin
+SELECT b.color FROM boats b,reserves r,sailors s WHERE s.sid = r.sid and r.bid = b.bid and s.sname='DUSTIN';
+
+-- 4) Find the names of the sailors who have reserved atleast one BOAT.
+SELECT DISTINCT(s.sname) FROM sailors s, reserves r, boats b WHERE s.sid = r.sid AND bid = r.bid;
+
+-- 5) Find the all sailid of sailors who have a rating of 10 or have reserved boat 104.
+SELECT sname
+FROM sailors
+WHERE sid IN (SELECT sid FROM reserves WHERE Rating = 10)
+   OR sid IN (SELECT sid FROM reserves WHERE bid = 104);
