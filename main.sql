@@ -71,19 +71,36 @@ INSERT INTO SAILORS VALUES (95,'BOB',3,63.5);
 -- Questions and Queries on above tables
 
 -- 1) Find the name of sailors who reserved boat number 3.
-SELECT DISTINCT(sname) from sailors,reserves where sailors.sid = reserves.sid;
+SELECT DISTINCT(sname) FROM sailors,reserves where sailors.sid = reserves.sid;
 
 -- 2) Find the name of sailors who reserved green boat.
 SELECT s.sname FROM sailors s, reserves r, boats b WHERE s.sid = r.sid AND r.bid = b.bid AND b.color = 'GREEN';
 
 -- 3) Find the color of boats reserved by Dustin
-SELECT b.color FROM boats b,reserves r,sailors s WHERE s.sid = r.sid and r.bid = b.bid and s.sname='DUSTIN';
+SELECT b.color FROM boats b,reserves r,sailors s WHERE s.sid = r.sid AND r.bid = b.bid AND s.sname='DUSTIN';
 
 -- 4) Find the names of the sailors who have reserved atleast one BOAT.
 SELECT DISTINCT(s.sname) FROM sailors s, reserves r, boats b WHERE s.sid = r.sid AND bid = r.bid;
 
--- 5) Find the all sailid of sailors who have a rating of 10 or have reserved boat 104.
+-- 5) Find the all sid of sailors who have a rating of 10 or have reserved boat 104.
 SELECT sname
 FROM sailors
 WHERE sid IN (SELECT sid FROM reserves WHERE Rating = 10)
    OR sid IN (SELECT sid FROM reserves WHERE bid = 104);
+
+-- 6) Find the sid‘s of sailors with age over 20 who have not registered a red boat.
+SELECT DISTINCT(s.sid) FROM sailors s,reserves r,boats b WHERE s.sid = r.sid
+							AND b.bid = r.bid
+							AND s.age > 20 
+							AND b.color != 'RED';
+
+-- 7) Find the names of sailors who have reserved a red or green boat.
+SELECT DISTINCT(s.sname) FROM sailors s, reserves r,boats b WHERE s.sid = r.sid
+							      AND r.bid = b.bid 
+							      AND (b.color = 'RED' or b.color = 'GREEN');
+
+-- 8) Find sailors whose rating is better than Dustin.
+SELECT sname FROM sailors WHERE rating > (SELECT rating FROM sailors WHERE sname = 'DUSTIN');
+
+-- 9) Find the names of sailors who are older than the oldest sailor with a rating of 10.
+SELECT sname FROM sailors WHERE age > (SELECT MAX(age) FROM sailors WHERE rating=10);
